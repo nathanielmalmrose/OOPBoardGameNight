@@ -54,11 +54,15 @@ public class Menu {
         switch (playerChoice) {
             case 1:
                 playerOne = menuSelectPlayer();
+                playerOne.setPlayerNum(1);
                 playerTwo = menuSelectPlayer();
+                playerTwo.setPlayerNum(2);
                 break;
             case 2:
                 playerOne = menuSelectPlayer();
+                playerOne.setPlayerNum(1);
                 playerTwo = new Computer();
+                playerTwo.setPlayerNum(2);
                 break;
         }
     }
@@ -78,8 +82,8 @@ public class Menu {
     }
 
     public Player menuPlayerFromLeaderboard() {
-        int playerChoice = ConsoleIO.promptForMenuSelection(leaderBoard.leaderBoardToArray(), true);
-        return leaderBoard.getLeaderBoardList().get(playerChoice);
+        int playerChoice = ConsoleIO.promptForMenuSelection(leaderBoard.leaderBoardToArray(), false);
+        return leaderBoard.getLeaderBoardList().get(playerChoice - 1);
     }
 
     public void leaderBoard() {
