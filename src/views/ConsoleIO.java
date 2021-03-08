@@ -121,6 +121,7 @@ public class ConsoleIO {
      * @return the int of the selection made by the user
      */
     public static int promptForMenuSelection(String[] options, boolean withQuit){
+
         if ((options == null || options.length == 0) && !withQuit) {
             throw new IllegalArgumentException("There must be at least one option to choose.");
         }

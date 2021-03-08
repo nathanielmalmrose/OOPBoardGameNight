@@ -2,12 +2,16 @@ package models;
 
 public abstract class Player {
 
-
         private int playerWinCount = 0;
         private int playerNum;
         private String playerName;
 
     public Player() {
+    }
+
+    public Player(String playerName, int playerNum) {
+        setPlayerName(playerName);
+        setPlayerNum(playerNum);
     }
 
     public Player(String playerName) {
