@@ -1,8 +1,11 @@
 package views;
 
+import models.Human;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 
 public class ConsoleIO {
 
@@ -150,6 +153,29 @@ public class ConsoleIO {
         String menu = sb.toString();
 
         return promptForInt(menu, min, max);
+    }
+
+    //prints out any text needed
+    public static void printText(String text){
+        System.out.println(text);
+    }
+
+    //prints the dice roll results to players
+    public static void printDice(ArrayList<models.Die> dice){
+        System.out.println("The dice roll results:");
+        for (int i = 0; i < dice.size(); i++) {
+            if (!dice.get(i).getIsPutAside()){
+                System.out.println("Dice #" + (i + 1) + ": " + dice.get(i).getRollResult());
+            }
+        }
+    }
+
+    //shows the order in which the players will be taking their turns
+    public static void printPlayerTurns(ArrayList<Human> players){
+        System.out.println("Players will be going in the following order:");
+        for (int i = 0; i < players.size(); i++) {
+            System.out.println((i + 1) + ": " + players.get(i).getPlayerName());
+        }
     }
 
 }

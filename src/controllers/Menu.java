@@ -39,8 +39,10 @@ public class Menu {
                     checkers = new Checkers(playerOne, playerTwo);
                     break;
                 case 2:
-                    menuSetPlayers();
-                    farkle.playGame();
+                    //menuSetPlayers();
+                    //starts the Farkle game
+                    Farkle play = new Farkle();
+                    play.startFarkle();
                     break;
                 case 3:
                     menuSetPlayers();
