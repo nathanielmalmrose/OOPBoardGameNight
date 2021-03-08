@@ -18,6 +18,14 @@ public abstract class Player {
         setPlayerName(playerName);
     }
 
+    public void addPlayersWin(int numberOfWins){
+        this.playerWinCount += numberOfWins;
+    }
+
+    public int getPlayerWinCount(){
+        return playerWinCount;
+    }
+
     public String getPlayerName() {
         return playerName;
     }
@@ -33,7 +41,6 @@ public abstract class Player {
     public void setPlayerNum(int playerNum) {
         this.playerNum = playerNum;
     }
-
 
     @Override
     public String toString() {

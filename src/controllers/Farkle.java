@@ -21,9 +21,8 @@ public class Farkle {
     private int sixes = 0;
 
     //starts the game
-    public void startFarkle(){
-        getPlayersPlaying();
-        setPlayersNames();
+    public void startFarkle(ArrayList<Human> playersPlaying){
+        getPlayersPlaying(playersPlaying);
         setTurns();
         takeTurns();
     }
@@ -50,6 +49,7 @@ public class Farkle {
                 winner = lastTurn(score, winner);
 
                 ConsoleIO.printText("\n\nPlayer: " + winner.getPlayerName() + " won the game with the score of: " + winner.getScore());
+                winner.addPlayersWin(1);
             }
         } while (noOneWon);
     }
@@ -544,6 +544,7 @@ public class Farkle {
         ConsoleIO.printPlayerTurns(playerTurns);
     }
 
+    //is no longer needed as names get out in the Menu class kept it around for just in case
     public void setPlayersNames(){
         //asks the user for the names of all the players playing
         for (int i = 0; i < playersPlaying.size(); i++) {
@@ -553,13 +554,8 @@ public class Farkle {
         }
     }
 
-    public void getPlayersPlaying(){
-        //asks the user for how many people are going to be playing and assigns that many to the players playing array list
-        int players = ConsoleIO.promptForInt("\nHow many players are going to play? ", 2, 10);
-        for (int i = 0; i < players; i++) {
-            Human player = new Human();
-            playersPlaying.add(player);
-        }
+    public void getPlayersPlaying(ArrayList<Human> playersPlaying){
+        this.playersPlaying = playersPlaying;
     }
 
     public void setDice(){

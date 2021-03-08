@@ -6,9 +6,10 @@ import models.LeaderBoard;
 import models.Player;
 import views.ConsoleIO;
 
+import java.util.ArrayList;
+
 public class Menu {
     private Checkers checkers;
-    private Farkle farkle = new Farkle();
     private BlackJack blackJack = new BlackJack();
     private LeaderBoard leaderBoard = new LeaderBoard();
     private Player playerOne;
@@ -39,16 +40,25 @@ public class Menu {
                     checkers = new Checkers(playerOne, playerTwo);
                     break;
                 case 2:
-                    //menuSetPlayers();
-                    //starts the Farkle game
                     Farkle play = new Farkle();
-                    play.startFarkle();
+                    play.startFarkle(setFarklePlayers());
                     break;
                 case 3:
                     menuSetPlayers();
                     blackJack.playGame();
                     break;
             }
+    }
+
+    public ArrayList<Human> setFarklePlayers(){
+        ArrayList<Human> playersPlaying = new ArrayList<>();
+        int players = ConsoleIO.promptForInt("\nHow many players are going to play? ", 2, 10);
+        for (int i = 0; i < players; i++) {
+            ConsoleIO.printText("\nChoose an option regarding player: #" + (i + 1));
+            Human player = (Human)menuSelectPlayer();
+            playersPlaying.add(player);
+        }
+        return playersPlaying;
     }
 
     public void menuSetPlayers() {
@@ -89,7 +99,7 @@ public class Menu {
     }
 
     public void leaderBoard() {
-        leaderBoard.showLeaderboard();
+        ConsoleIO.showLeaderboard(leaderBoard.getLeaderBoardList());
     }
 
     public Player newPlayer() {
@@ -102,7 +112,7 @@ public class Menu {
             newPlayer = ConsoleIO.promptForString("Enter Player's Name: ", false);
             for (Player p : leaderBoard.getLeaderBoardList()) {
                 if (p.getPlayerName().equalsIgnoreCase(newPlayer)) {
-                    System.out.println("User " + p.getPlayerName() + " already exists.");
+                    ConsoleIO.printText("User " + p.getPlayerName() + " already exists.");
                     playerChoice = ConsoleIO.promptForMenuSelection(new String[]{"Use existing player", "Enter new player"}, true);
                     switch (playerChoice) {
                         case 1:

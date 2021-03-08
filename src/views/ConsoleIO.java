@@ -1,6 +1,7 @@
 package views;
 
 import models.Human;
+import models.Player;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -74,7 +75,7 @@ public class ConsoleIO {
             }
 
             if (numIsInvalid) {
-                System.out.println("You must enter a whole number between" + min + " and " + max + ". Please, try again");
+                System.out.println("You must enter a whole number between: " + min + " and " + max + ". Please, try again");
             }
         } while (numIsInvalid);
 
@@ -149,7 +150,7 @@ public class ConsoleIO {
             sb.append("0) Exit\n");
         }
 
-        sb.append("\nEnter the number of your choice");
+        sb.append("\nEnter the number of your choice: ");
         String menu = sb.toString();
 
         return promptForInt(menu, min, max);
@@ -176,6 +177,37 @@ public class ConsoleIO {
         for (int i = 0; i < players.size(); i++) {
             System.out.println((i + 1) + ": " + players.get(i).getPlayerName());
         }
+    }
+
+    //prints the leaderboard
+    public static void showLeaderboard(ArrayList<Player> leaderBoardList) {
+        if (leaderBoardList.size() == 0){
+            ConsoleIO.printText("\nThe leader board doesnt have any players added to it\n");
+        }
+        else{
+            ArrayList<Player> tempArray = leaderBoardList;
+            ArrayList<Player> highestWins = new ArrayList<>();
+
+            do {
+                int highestWin = tempArray.get(0).getPlayerWinCount();
+                Player highestScore = tempArray.get(0);
+
+                for (Player player : tempArray) {
+                    if (player.getPlayerWinCount() > highestWin) {
+                        highestScore = player;
+                    }
+                }
+                tempArray.remove(highestScore);
+                highestWins.add(highestScore);
+            } while (tempArray.size() != 0);
+
+            System.out.println();
+            for (int i = 0; i < highestWins.size(); i++) {
+                ConsoleIO.printText("#" + (i+1) + ": \"" + highestWins.get(i).getPlayerName() + "\" with " + highestWins.get(i).getPlayerWinCount() + " wins");
+            }
+            System.out.println();
+        }
+
     }
 
 }
