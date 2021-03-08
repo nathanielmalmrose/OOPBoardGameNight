@@ -49,26 +49,15 @@ public class CheckerBoard {
         return board;
     }
 
+    public void movePiece(int[] startPiece, int row, int col) {
+        board[row][col] = board[startPiece[0]][startPiece[1]];
+        board[startPiece[0]][startPiece[1]] = null;
+    }
+
     public void setBoard(CheckerPiece[][] board) {
         this.board = board;
     }
 
-    public void checkMovesPlayerOne() {
-        //  check isKing
-
-
-        //
-        //  From user input, determine available moves.
-        //
-    }
-
-    public void checkMovesPlayerTwo() {
-
-    }
-
-    public void movePiece() {
-        //  Move the piece on the board using already entered inputs
-    }
 
     public void checkKing(Player playerOne, Player playerTwo) {
         for (int col = 0; col < board.length; col++) {
