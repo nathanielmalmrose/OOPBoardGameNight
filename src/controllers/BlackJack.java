@@ -9,7 +9,8 @@ public class BlackJack {
     static Human Dealer = new Human("DEALER");
     static public boolean gameOver = false;
     static BJCardDeck deck1 = new BJCardDeck();
-   static  Human newPlayer = new Human(Name);
+    static  Human newPlayer = new Human(Name);
+    static boolean playerNotLost;
 
 
     public static void playGamePVCP() {
@@ -25,7 +26,8 @@ public class BlackJack {
 
         playerTime(newPlayer, deck1);
         //Time for Dealer to play
-        DealerTurn(deck1);
+        if (playerNotLost!=true){
+        DealerTurn(deck1);}
         //results after Dealer
 
     }
@@ -44,11 +46,12 @@ public class BlackJack {
         Player2.addCard(deck1.draw());
         Player2.addCard(deck1.draw());
 
-        System.out.println(Dealer.getHandAsString(false));
+        System.out.println(Player2.getHandAsString(false));
 
         playerTime(newPlayer, deck1);
         //Time for Player2 to play
-        playerTime(Player2, deck1);
+        if (playerNotLost){
+        playerTime(Player2, deck1);}
         //results after Dealer
         checkforWinner(newPlayer, Player2);
     }
@@ -68,7 +71,7 @@ public class BlackJack {
 
                 if (mainPlayer.sumOfHand() > 21) {
                     System.out.println("You busted and got a total of " + mainPlayer.sumOfHand() + ". Dealer wins this time! ");
-
+                    playerNotLost = true;
                     gameOver = true;
                 } else if (mainPlayer.sumOfHand() == 21) {
                     System.out.println("BlackJack, YOu got a perfect 21!");
@@ -128,6 +131,7 @@ public class BlackJack {
         if (totalPlayer1Sum > totalPlayer2Sum) {
             System.out.println("Both players has decided to stay. The winner is " + player1.getPlayerName()
                     + " with a total of " + totalPlayer1Sum + ".");
+
         } else {
             System.out.println("Both players has decided to stay. The winner is " + player2.getPlayerName()
                     + " with a total of " + totalPlayer2Sum + ".");

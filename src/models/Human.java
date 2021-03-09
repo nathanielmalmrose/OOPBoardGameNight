@@ -4,8 +4,7 @@ import java.util.ArrayList;
 
 public class Human extends Player {
     private int score;
-    private String nickName;
-    private int playerNumOfCards;
+
     private ArrayList<BJCard> playerHand = new ArrayList<>();
 
     //used for testing the leader board printing
