@@ -9,6 +9,14 @@ public class Human extends Player {
         addPlayersWin(playerWinCount);
     }
 
+    public Human() {
+
+    }
+
+    public Human(String playerName) {
+        setPlayerName(playerName);
+    }
+
     //adds what ever int is passed in to the score
     public void addToScore(int score){
         this.score += score;
@@ -18,13 +26,4 @@ public class Human extends Player {
     public int getScore(){
         return score;
     }
-
-    public Human() {
-
-    }
-
-    public Human(String playerName) {
-        setPlayerName(playerName);
-    }
-
 }
