@@ -44,8 +44,7 @@ public class Menu {
                     play.startFarkle(setFarklePlayers());
                     break;
                 case 3:
-                    menuSetPlayers();
-                    blackJack.playGame();
+                    BJMenuChoose();
                     break;
             }
     }
@@ -133,6 +132,20 @@ public class Menu {
         }
 
         return player;
+    }
+    public static void BJMenuChoose(){
+        String[] menuOptions ={
+                "1: play PvP", "2: Play PVC"
+        };
+        int number = ConsoleIO.promptForMenuSelection(menuOptions,true);
+        switch (number){
+            case 1:
+                BlackJack.playGamePVP();
+                break;
+            case 2:
+                BlackJack.playGamePVCP();
+                break;
+        }
     }
 
 }
