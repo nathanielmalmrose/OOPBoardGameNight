@@ -6,16 +6,12 @@ public class Human extends Player {
     private int score;
     private String nickName;
     private int playerNumOfCards;
-    private ArrayList<BJCard> playerHand;
+    private ArrayList<BJCard> playerHand = new ArrayList<>();
 
     //used for testing the leader board printing
     public Human(String playerName, int playerWinCount) {
         setPlayerName(playerName);
         addPlayersWin(playerWinCount);
-    }
-
-    public Human() {
-
     }
 
     public Human(String playerName) {
@@ -47,19 +43,10 @@ public class Human extends Player {
     }
     //this is the player hand and hides the card if needed you
 
-    public void printPlayerHand(boolean hideCard) {
-        System.out.println(this.nickName + "s current hand.");
-        for ( int card = 0; card < playerNumOfCards; card++){
-            if(card == 0 && !hideCard){
-                System.out.println("[Hidden card]");
-            } else {
-                System.out.println(playerHand.get(card).toString());
-            }
-        }
-    }
+
     public String getHandAsString(boolean hideCard) {
         StringBuilder sb = new StringBuilder();
-        sb.append(nickName+"\'s current hand:");
+        sb.append(getPlayerName()+"\'s current hand:");
         sb.append('\n');
         for (int i = 0; i < playerHand.size(); i++) {
             if (i == 0 && hideCard) {

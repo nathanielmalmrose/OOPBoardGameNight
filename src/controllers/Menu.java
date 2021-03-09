@@ -10,7 +10,6 @@ import java.util.ArrayList;
 
 public class Menu {
     private Checkers checkers;
-    private BlackJack blackJack = new BlackJack();
     private LeaderBoard leaderBoard = new LeaderBoard();
     private Player playerOne;
     private Player playerTwo;
@@ -134,9 +133,7 @@ public class Menu {
         return player;
     }
     public static void BJMenuChoose(){
-        String[] menuOptions ={
-                "1: play PvP", "2: Play PVC"
-        };
+        String[] menuOptions ={"play PvP", "Play PVC"};
         int number = ConsoleIO.promptForMenuSelection(menuOptions,true);
         switch (number){
             case 1:

@@ -5,13 +5,11 @@ import models.Human;
 import views.ConsoleIO;
 
 public class BlackJack {
-
-
     static public String Name = ConsoleIO.promptForString("Input Player 1 Name: ", false);
-   static  Human newPlayer = new Human(Name);
     static Human Dealer = new Human("DEALER");
     static public boolean gameOver = false;
     static BJCardDeck deck1 = new BJCardDeck();
+   static  Human newPlayer = new Human(Name);
 
 
     public static void playGamePVCP() {
