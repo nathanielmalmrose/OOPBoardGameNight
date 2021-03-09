@@ -10,9 +10,11 @@ import java.util.ArrayList;
 
 public class Menu {
     private Checkers checkers;
+    private final BlackJack blackJack = new BlackJack();
     private LeaderBoard leaderBoard = new LeaderBoard();
     private Player playerOne;
     private Player playerTwo;
+
 
     public void menuMain() {
         int playerChoice;
@@ -43,7 +45,7 @@ public class Menu {
                     play.startFarkle(setFarklePlayers());
                     break;
                 case 3:
-                    BJMenuChoose();
+                    menuSetPlayersBJ();
                     break;
             }
     }
@@ -132,17 +134,24 @@ public class Menu {
 
         return player;
     }
-    public static void BJMenuChoose(){
-        String[] menuOptions ={"play PvP", "Play PVC"};
-        int number = ConsoleIO.promptForMenuSelection(menuOptions,true);
-        switch (number){
+
+    public void menuSetPlayersBJ() {
+        int playerChoice = ConsoleIO.promptForMenuSelection(new String[] {"Player vs Player", "Player vs Computer"}, true);
+        switch (playerChoice) {
             case 1:
-                BlackJack.playGamePVP();
+                System.out.println("Player1 turn to choose: ");
+                playerOne = menuSelectPlayer();
+                playerOne.setPlayerNum(1);
+                System.out.println("Player2 turn to choose: ");
+                playerTwo = menuSelectPlayer();
+                playerTwo.setPlayerNum(2);
+                blackJack.playGamePVP(playerOne,playerTwo);
                 break;
             case 2:
-                BlackJack.playGamePVCP();
+                playerOne = menuSelectPlayer();
+                playerOne.setPlayerNum(1);
+                blackJack.playGamePVCP(playerOne);
                 break;
         }
     }
-
 }

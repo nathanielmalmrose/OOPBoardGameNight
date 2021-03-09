@@ -2,62 +2,59 @@ package controllers;
 
 import models.BJCardDeck;
 import models.Human;
+import models.Player;
 import views.ConsoleIO;
 
 public class BlackJack {
-    static public String Name = ConsoleIO.promptForString("Input Player 1 Name: ", false);
-    static Human Dealer = new Human("DEALER");
-    static public boolean gameOver = false;
-    static BJCardDeck deck1 = new BJCardDeck();
-    static  Human newPlayer = new Human(Name);
-    static boolean playerNotLost;
+    Human Dealer = new Human("DEALER");
+    public boolean gameOver = false;
+    BJCardDeck deck1 = new BJCardDeck();
+    boolean playerNotLost;
 
 
-    public static void playGamePVCP() {
+    public void playGamePVCP(Player player1) {
         deck1.shuffle();
-        newPlayer.addCard(deck1.draw());
-        newPlayer.addCard(deck1.draw());
+        player1.addCard(deck1.draw());
+        player1.addCard(deck1.draw());
 
-        System.out.println(newPlayer.getHandAsString(false));
+        System.out.println(player1.getHandAsString(false));
         Dealer.addCard(deck1.draw());
         Dealer.addCard(deck1.draw());
 
         System.out.println(Dealer.getHandAsString(true));
 
-        playerTime(newPlayer, deck1);
+        playerTime(player1, deck1);
         //Time for Dealer to play
         if (playerNotLost!=true){
-        DealerTurn(deck1);}
+        DealerTurn(deck1, player1);}
         //results after Dealer
 
     }
 
-    public static void playGamePVP() {
+    public void playGamePVP(Player player1, Player Player2) {
         deck1.shuffle();
         //Gives player1 cards
-        newPlayer.addCard(deck1.draw());
-        newPlayer.addCard(deck1.draw());
+        player1.addCard(deck1.draw());
+        player1.addCard(deck1.draw());
 
-        System.out.println(newPlayer.getHandAsString(false));
+        System.out.println(player1.getHandAsString(false));
 
-        String name = ConsoleIO.promptForString("What is player 2's Name?:\n", false);
         //Player2 starts to exist
-        Human Player2 = new Human(name);
         Player2.addCard(deck1.draw());
         Player2.addCard(deck1.draw());
 
         System.out.println(Player2.getHandAsString(false));
 
-        playerTime(newPlayer, deck1);
+        playerTime(player1, deck1);
         //Time for Player2 to play
         if (playerNotLost){
         playerTime(Player2, deck1);}
         //results after Dealer
-        checkforWinner(newPlayer, Player2);
+        checkForWinner(player1, Player2);
     }
 
 
-    public static void playerTime(Human mainPlayer, BJCardDeck deck1) {
+    public void playerTime(Player mainPlayer, BJCardDeck deck1) {
         String userInput;
         System.out.println(mainPlayer.getPlayerName() + " Card value=" + mainPlayer.sumOfHand());
         do {
@@ -86,7 +83,7 @@ public class BlackJack {
 
     }
 
-    public static void DealerTurn(BJCardDeck deck1) {
+    public void DealerTurn(BJCardDeck deck1,Player thisPlayer) {
         System.out.println("Dealer turn!!");
         System.out.println();
         System.out.println(Dealer.getHandAsString(false));
@@ -101,7 +98,7 @@ public class BlackJack {
                 System.out.println(Dealer.getHandAsString(false));
                 if (Dealer.sumOfHand() > 21) {
                     System.out.println("Dealer busted and got a total of " + Dealer.sumOfHand() + ". "
-                            + newPlayer.getPlayerName() + " wins this time!");
+                            + thisPlayer.getPlayerName() + " wins this time!");
                     gameOver = true;
                 }
 
@@ -110,12 +107,12 @@ public class BlackJack {
                 System.out.println("Dealer has chosen to stay!");
                 System.out.println();
                 int totalDealerSum = Dealer.sumOfHand();
-                int totalPlayerSum1 = newPlayer.sumOfHand();
+                int totalPlayerSum1 = thisPlayer.sumOfHand();
                 if (totalDealerSum > totalPlayerSum1) {
                     System.out.println("Both players has decided to stay. The winner is " + Dealer.getPlayerName()
                             + " with a total of " + totalDealerSum + ".");
                 } else {
-                    System.out.println("Both players has decided to stay. The winner is " + newPlayer.getPlayerName()
+                    System.out.println("Both players has decided to stay. The winner is " + thisPlayer.getPlayerName()
                             + " with a total of " + totalPlayerSum1 + ".");
                 }
                 gameOver = false;
@@ -124,13 +121,14 @@ public class BlackJack {
         }
     }
 
-    public static  void checkforWinner(Human player1, Human player2) {
+    public  void checkForWinner(Player player1, Player  player2) {
 
         int totalPlayer1Sum = player1.sumOfHand();
         int totalPlayer2Sum = player2.sumOfHand();
         if (totalPlayer1Sum > totalPlayer2Sum) {
             System.out.println("Both players has decided to stay. The winner is " + player1.getPlayerName()
                     + " with a total of " + totalPlayer1Sum + ".");
+            
 
         } else {
             System.out.println("Both players has decided to stay. The winner is " + player2.getPlayerName()
