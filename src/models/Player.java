@@ -44,6 +44,26 @@ public abstract class Player {
     public void setPlayerNum(int playerNum) {
         this.playerNum = playerNum;
     }
+        //this is blackjack!
+
+    public BJCard getCard(int i) {
+        return this.playerHand.get(i);
+    }
+    public void removeCard(int i) {
+        this.playerHand.remove(i);
+    }
+
+    public void MovetoDeck(BJCardDeck moveTo){
+            int deckSize = this.playerHand.size();
+            int i;
+            for (i =0; i < deckSize;++i){
+                moveTo.addCard(this.getCard(i));
+            }
+            for(i = 0; i < deckSize; ++i) {
+                this.removeCard(0);
+            }
+        }
+
     //Add a card into your hand
     public void addCard(BJCard aCard){
         playerHand.add(aCard);
@@ -58,8 +78,6 @@ public abstract class Player {
         return totalSum;
     }
     //this is the player hand and hides the card if needed you
-
-
     public String getHandAsString(boolean hideCard) {
         StringBuilder sb = new StringBuilder();
         sb.append(getPlayerName()+"\'s current hand:");
@@ -76,6 +94,8 @@ public abstract class Player {
         return sb.toString();
     }
 
+
+    //This is blackJack!!
     @Override
     public String toString() {
         return getPlayerName();

@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 public class BJCardDeck {
-    private final int NumberOfCards=  52;
     private ArrayList<BJCard> cards;
 
 
@@ -20,9 +19,25 @@ public class BJCardDeck {
         public void shuffle(){
             Collections.shuffle(cards);
         }
-    public BJCard draw() {
+
+    public BJCard draw(BJCardDeck comingFrom) {
+        this.cards.add(comingFrom.getCard(0));
+
         return cards.remove(0);
     }
+    public BJCard getCard(int i) {
+        return (BJCard)this.cards.get(i);
+    }
+    public void removeCard(int i) {
+        this.cards.remove(i);
+    }
+
+    public void addCard(BJCard aCard){
+        this.cards.add(aCard);
+    }
+
+
+
 
 
 }
