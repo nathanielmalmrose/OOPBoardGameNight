@@ -1,199 +1,209 @@
 package controllers;
 
-import models.CheckerBoard;
-import models.CheckerPiece;
+import controllers.Move;
 import models.Player;
-import views.ConsoleIO;
-
-import java.util.ArrayList;
+import models.Tile;
 
 public class Checkers {
 
-    private Player playerOne;
-    private Player playerTwo;
-    private CheckerBoard checkerBoard = new CheckerBoard();
+    private Player playerOne = null;
+    private Player playerTwo = null;
+    private static Tile[][] checkerBoard;
     private int playerTurn = 1;
+    private Player winner = null;
 
-    private ArrayList<BoardSpace> validMoves = new ArrayList<>();
 
+    //  Initializes the game and creates the board, an 8 by 8 array of Tiles.
+    //  Does not yet add Pieces to the Board.
     public Checkers() {
 
     }
 
-    public Checkers(Player playerOne, Player playerTwo) {
-        setPlayerOne(playerOne);
-        setPlayerTwo(playerTwo);
-        playGame();
+    public Checkers(Player one, Player two) {
+        addPlayer(one);
+        addPlayer(two);
+        checkerBoard = new Tile[8][8];
     }
 
-    public void takeTurn() {
-        do {
-            checkerBoard.printBoard();
-            checkForWin();
-            switch (playerTurn) {
-                case 1:
-
-//                    playerTurn = 2;
-                    movePiece(playerTurn(playerOne));
-                    break;
-                case 2:
-                    playerTurn = 1;
-                    playerTurn(playerTwo);
-                    break;
-            }
-        } while (playerTurn > 0);
-    }
-
-    // get player's pieces
-    // to array for selection prompt
-
-    //Prompt the user to select the piece
-
-    //get the right-side piece
-    //get the letf-sice piece
-
-    // if right piece is enemy piece than do some logic
-    // if the left piece is enemy piece than do some logic
-
-    // add the new piece at new location
-    // remove the enemy piece
-    // remove the old piece at old location
-
-    private int[] playerTurn(Player p) {
-        CheckerPiece cp;
-        int rowStart;
-        int colStart;
-
-        BoardSpace spaceOne = null;
-        BoardSpace spaceTwo = null;
-        BoardSpace spaceThree = null;
-        BoardSpace spaceFour = null;
-
-
-        boolean invalidMove = true;
-        do {
-            do {
-                colStart = ConsoleIO.promptForInt("Choose col", 0, 7);
-                rowStart = ConsoleIO.promptForInt("Choose row", 0, 7);
-                cp = checkerBoard.getBoard()[rowStart][colStart];
-            } while (!cp.getPlayer().getPlayerName().equals(p.getPlayerName()));
-
-            BoardSpace startSpace = new BoardSpace(rowStart, colStart);
-            if (p.getPlayerNum() == 1) {
-                if (checkerBoard.getBoard()[rowStart + 1][colStart + 1] == null) {
-                    spaceOne = new BoardSpace(rowStart + 1, colStart + 1);
-                } else if (checkerBoard.getBoard()[rowStart + 1][colStart + 1].getPlayer().getPlayerName().equals(cp.getPlayer().getPlayerName())) {
-                    spaceOne = null;
-                } else if (!checkerBoard.getBoard()[rowStart + 1][colStart + 1].getPlayer().getPlayerName().equals(cp.getPlayer().getPlayerName()) &&
-                        (checkerBoard.getBoard()[rowStart + 1][colStart + 1] != null) &&
-                        (checkerBoard.getBoard()[rowStart + 2][colStart + 2] != null)) {
-                    spaceOne = new BoardSpace(rowStart + 2, colStart + 2);
-                }
-
-                if (checkerBoard.getBoard()[rowStart + 1][colStart - 1] == null) {
-                    spaceTwo = new BoardSpace(rowStart + 1, colStart - 1);
-                } else if (checkerBoard.getBoard()[rowStart + 1][colStart - 1].getPlayer().getPlayerName().equals(cp.getPlayer().getPlayerName())) {
-                    spaceTwo = null;
-                } else if (!checkerBoard.getBoard()[rowStart + 1][colStart - 1].getPlayer().getPlayerName().equals(cp.getPlayer().getPlayerName()) &&
-                        (checkerBoard.getBoard()[rowStart + 1][colStart - 1] != null) &&
-                        (checkerBoard.getBoard()[rowStart + 2][colStart - 2] != null)) {
-                    spaceTwo = new BoardSpace(rowStart + 2, colStart - 2);
-                }
-
-                if (cp.isKing()) {
-                    if (checkerBoard.getBoard()[rowStart - 1][colStart + 1] == null) {
-                        spaceThree = new BoardSpace(rowStart + 1, colStart + 1);
-                    } else if (checkerBoard.getBoard()[rowStart - 1][colStart + 1].getPlayer().getPlayerName().equals(cp.getPlayer().getPlayerName())) {
-                        spaceThree = null;
-                    } else if (!checkerBoard.getBoard()[rowStart - 1][colStart + 1].getPlayer().getPlayerName().equals(cp.getPlayer().getPlayerName()) &&
-                            (checkerBoard.getBoard()[rowStart - 1][colStart + 1] != null) &&
-                            (checkerBoard.getBoard()[rowStart - 2][colStart + 2] != null)) {
-                        spaceThree = new BoardSpace(rowStart - 2, colStart + 2);
-                    }
-
-                    if (checkerBoard.getBoard()[rowStart - 1][colStart - 1] == null) {
-                        spaceFour = new BoardSpace(rowStart + 1, colStart - 1);
-                    } else if (checkerBoard.getBoard()[rowStart - 1][colStart - 1].getPlayer().getPlayerName().equals(cp.getPlayer().getPlayerName())) {
-                        spaceFour = null;
-                    } else if (!checkerBoard.getBoard()[rowStart - 1][colStart - 1].getPlayer().getPlayerName().equals(cp.getPlayer().getPlayerName()) &&
-                            (checkerBoard.getBoard()[rowStart - 1][colStart - 1] != null) &&
-                            (checkerBoard.getBoard()[rowStart - 2][colStart - 2] != null)) {
-                        spaceFour = new BoardSpace(rowStart + 2, colStart + 2);
-                    }
-                }
-            }
-
-            validMoves.clear();
-            if (spaceOne != null) {
-                validMoves.add(spaceOne);
-                invalidMove = false;
-            }
-            if (spaceTwo != null) {
-                validMoves.add(spaceTwo);
-                invalidMove = false;
-            }
-            if (spaceThree != null) {
-                validMoves.add(spaceThree);
-                invalidMove = false;
-            }
-            if (spaceFour != null) {
-                validMoves.add(spaceFour);
-                invalidMove = false;
-            }
-            if (spaceOne == null && spaceTwo == null && spaceThree == null && spaceFour == null) {
-                System.out.println("Please choose another piece: ");
-            }
-        } while (invalidMove);
-        return new int[] {rowStart, colStart};
-    }
-
-    private void movePiece(int[] startPiece) {
-        int playerChoice = ConsoleIO.promptForMenuSelection(validMovesToArray(), false);
-
-        int rowChoice = validMoves.get(playerChoice-1).getRow();
-        int colChoice = validMoves.get(playerChoice-1).getCol();
-
-        checkerBoard.movePiece(startPiece, rowChoice, colChoice);
-        
-    }
-
-
-    private void checkForWin() {
-        //  Scan the board for null
-        //  checkMoves() passing in every piece
-    }
-
-    public String[] validMovesToArray() {
-
-        String[] validMoveArray = new String[validMoves.size()];
-        for (int i = 0; i < validMoves.size(); i++) {
-            validMoveArray[i] = validMoves.get(i).toString();
+    //  If the game has no players, sets the supplied Player to be Player One.
+    //  If the game currently has one player, sets the supplied Player to be Player Two,
+    //      assigns colors and directions to each Player as appropriate, and starts the game.
+    //  If the game currently has two non-null players, does nothing.
+    public void addPlayer(Player newPlayer) {
+        if (playerOne == null) {
+            playerOne = newPlayer;
+            playerOne.setDirection(1);
+            playerOne.setColor("x");
+        } else if (playerTwo == null) {
+            playerTwo = newPlayer;
+            playerTwo.setDirection(-1);
+            playerTwo.setColor("o");
+        } else {
+            System.out.println("The game already has two players.\n");
         }
-        return validMoveArray;
     }
 
 
 
-
-    public void playGame() {
-        checkerBoard.resetBoard(playerOne, playerTwo);
-        checkerBoard.printBoard();
-        takeTurn();
+    //  Returns the Tile on the board at the specified row and column.
+    public Tile getTile(int row, int col) {
+        return checkerBoard[row][col];
     }
 
-    public Player getPlayerOne() {
-        return playerOne;
+    //  Resets the board,
+    //      removing any Pieces that are present from the board and either Player,
+    //      adds 12 pieces to each Player in the correct configuration,
+    //      sets the first Player added as the Player whose turn it is,
+    //      and then initializes game play with the play method.
+    protected void startGame() {
+        clearBoard();
+        setBoard();
     }
 
-    public void setPlayerOne(Player playerOne) {
-        this.playerOne = playerOne;
+    public void clearBoard() {
+        for (int row = 0; row < 8; row++) {
+            for (int col = 0; col < 8; col++) {
+                checkerBoard[row][col] = new Tile(row, col);
+            }
+        }
     }
 
-    public Player getPlayerTwo() {
-        return playerTwo;
+    public void setBoard() {
+        for (int row = 0; row < 8; row++) {
+            for (int col = 0; col < 8; col++) {
+                // Player One
+                if (row == 0 || row == 2) {
+                    if (col %2 == 0) {
+                        checkerBoard[row][col].setOccupant(playerOne.addPiece(checkerBoard[row][col]));
+                    }
+                }
+                if (row == 1) {
+                    if (col %2 == 1){
+                        checkerBoard[row][col].setOccupant(playerOne.addPiece(checkerBoard[row][col]));
+                    }
+                }
+
+                // Player Two
+                if (row == 7 || row == 5) {
+                    if (col %2 == 1) {
+                        checkerBoard[row][col].setOccupant(playerTwo.addPiece(checkerBoard[row][col]));
+                    }
+                }
+                if (row == 6) {
+                    if (col %2 == 0) {
+                        checkerBoard[row][col].setOccupant(playerTwo.addPiece(checkerBoard[row][col]));
+                    }
+                }
+            }
+        }
     }
 
-    public void setPlayerTwo(Player playerTwo) {
-        this.playerTwo = playerTwo;
+    //  While an end-game state is not reached,
+    //      asks the Player whose turn it is for a move.
+    //      If that move is not a legal move,
+    //          keeps asking until a legal move is given.
+    //      Once a valid move is supplied,
+    //          the move is executed,
+    //          and the turn is switched,
+    //          giving the other Player a chance to move.
+    protected void play() {
+        while (!endGame()) {
+            printBoard();
+            if (playerTurn == 1) {
+                takeTurn(playerOne);
+                playerTurn = 2;
+            } else {
+                takeTurn(playerTwo);
+                playerTurn = 1;
+            }
+        }
+        declareWinner();
+    }
+
+    //  Returns true if either Player has no more Pieces.
+    protected boolean endGame() {
+        boolean noPieces = false;
+        if (playerOne.getNumPieces() == 0 || playerOne.getMoveOptions().size() == 0) {
+            noPieces = true;
+            winner = playerTwo;
+        } else if (playerTwo.getNumPieces() == 0 || playerTwo.getMoveOptions().size() == 0) {
+            noPieces = true;
+            winner = playerOne;
+        }
+        return noPieces;
+    }
+
+    public void declareWinner() {
+        System.out.println(winner.getPlayerName() + " Wins!");
+        winner.addPlayersWin(1);
+    }
+
+    public void takeTurn(Player p) {
+        System.out.println(p.getPlayerName() + "(" + p.getColor() + ")'s turn: ");
+        p.updatePieces();
+        int moveChoice = p.chooseMove(p);
+        movePiece(p.getMoveOptions().get(moveChoice - 1));
+    }
+
+    public void movePiece(Move m) {
+        int endRow = m.getMoveEnd().getRow();
+        int endCol = m.getMoveEnd().getCol();
+        int startRow = m.getMoveStart().getRow();
+        int startCol = m.getMoveStart().getCol();
+
+
+        checkerBoard[endRow][endCol].setOccupant(checkerBoard[startRow][startCol].getOccupant());
+        checkerBoard[endRow][endCol].getOccupant().setTile(checkerBoard[endRow][endCol]);
+        checkerBoard[startRow][startCol].setOccupant(null);
+
+        if (m.isCapture()) {
+            int captRow = ((endRow - startRow) / 2) + startRow;
+            int captCol = ((endCol - startCol) / 2) + startCol;
+            checkerBoard[captRow][captCol].getOccupant().getPlayer().removePieces(checkerBoard[captRow][captCol].getOccupant());
+            checkerBoard[captRow][captCol].setOccupant(null);
+
+        }
+        checkKing();
+    }
+
+    public void checkKing() {
+        for (int col = 0; col < checkerBoard.length; col++) {
+            if (checkerBoard[0][col].getOccupant() != null) {
+                if (checkerBoard[0][col].getOccupant().getPlayer().getPlayerName() == playerTwo.getPlayerName()) {
+                    checkerBoard[0][col].getOccupant().king();
+                }
+            }
+            if (checkerBoard[7][col].getOccupant() != null) {
+                if (checkerBoard[7][col].getOccupant().getPlayer().getPlayerName() == playerOne.getPlayerName()) {
+                    checkerBoard[7][col].getOccupant().king();
+                }
+            }
+        }
+    }
+
+    public void printBoard() {
+        System.out.println("[ ] [0] [1] [2] [3] [4] [5] [6] [7] <- 2nd #");
+        int row = 0;
+        for (Tile[] spaces : this.checkerBoard) {
+            System.out.print("[" + row + "]\t");
+            for (Tile space : spaces) {
+                if (space.getOccupant() == null) {
+                    System.out.print("[ ]\t");
+                } else {
+                    System.out.print("[" + space.getOccupant().getColor() + "]\t");
+                }
+            }
+            System.out.println();
+            row++;
+        }
+        System.out.println("\n");
+    }
+
+    public static Tile[][] getCheckerBoard() {
+        return checkerBoard;
+    }
+
+    public static void setCheckerBoard(Tile[][] checkerBoard) {
+        Checkers.checkerBoard = checkerBoard;
     }
 }

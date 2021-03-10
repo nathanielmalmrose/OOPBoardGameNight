@@ -3,7 +3,7 @@ package models;
 import java.util.ArrayList;
 
 public class LeaderBoard {
-    private ArrayList<Player> leaderBoardList = new ArrayList<>();
+    private ArrayList<Player> leaderBoardList;
 
     public ArrayList<Player> getLeaderBoardList() {
         return leaderBoardList;

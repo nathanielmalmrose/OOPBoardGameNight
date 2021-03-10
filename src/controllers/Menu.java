@@ -17,8 +17,8 @@ public class Menu {
 
 
     public void menuMain() {
+        leaderBoard.setLeaderBoardList(FileIO.loadList());
         int playerChoice;
-
         do {
             playerChoice = ConsoleIO.promptForMenuSelection(new String[] {"Choose a Game", "Leaderboard"}, true );
             switch (playerChoice) {
@@ -31,6 +31,7 @@ public class Menu {
             }
 
         } while (playerChoice > 0);
+        FileIO.saveList(leaderBoard.getLeaderBoardList());
     }
 
     public void menuChooseGame() {
@@ -39,6 +40,8 @@ public class Menu {
                 case 1:
                     menuSetPlayers();
                     checkers = new Checkers(playerOne, playerTwo);
+                    checkers.startGame();
+                    checkers.play();
                     break;
                 case 2:
                     Farkle play = new Farkle();
