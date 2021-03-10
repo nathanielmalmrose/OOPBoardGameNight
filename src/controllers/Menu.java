@@ -31,7 +31,6 @@ public class Menu {
             }
 
         } while (playerChoice > 0);
-        System.out.println(leaderBoard.getLeaderBoardList());
         FileIO.saveList(leaderBoard.getLeaderBoardList());
     }
 

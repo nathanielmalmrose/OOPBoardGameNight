@@ -185,7 +185,11 @@ public class ConsoleIO {
             ConsoleIO.printText("\nThe leader board doesnt have any players added to it\n");
         }
         else{
-            ArrayList<Player> tempArray = leaderBoardList;
+            ArrayList<Player> tempArray = new ArrayList<>();
+
+            for (Player p : leaderBoardList) {
+                tempArray.add(p);
+            }
             ArrayList<Player> highestWins = new ArrayList<>();
 
             do {

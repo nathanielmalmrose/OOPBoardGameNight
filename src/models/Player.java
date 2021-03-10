@@ -2,9 +2,11 @@ package models;
 
 import controllers.Checkers;
 import controllers.Move;
+
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public abstract class Player {
+public abstract class Player implements Serializable {
 
     private int playerWinCount = 0;
     private int playerNum;private String playerName;

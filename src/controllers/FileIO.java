@@ -1,6 +1,5 @@
 package controllers;
 
-import models.LeaderBoard;
 import models.Player;
 
 import java.io.*;
@@ -9,7 +8,6 @@ import java.util.ArrayList;
 public class FileIO {
 
     public static void saveList(ArrayList<Player> player) {
-        System.out.println("test1");
         try {
             FileOutputStream fos = new FileOutputStream("player");
             ObjectOutputStream oos = new ObjectOutputStream(fos);

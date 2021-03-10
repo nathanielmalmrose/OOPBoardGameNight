@@ -3,7 +3,9 @@ package models;
 
 import views.ConsoleIO;
 
-public class Human extends Player {
+import java.io.Serializable;
+
+public class Human extends Player implements Serializable {
     private int score;
 
     //used for testing the leader board printing
