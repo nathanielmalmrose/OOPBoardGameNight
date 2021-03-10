@@ -10,6 +10,7 @@ public class Tile {
     public Tile() {
 
     }
+
     //  Initializes the Tile with the given row and column.
     public Tile(int row, int col) {
         setRow(row);

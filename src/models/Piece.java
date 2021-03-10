@@ -79,7 +79,6 @@ public class Piece {
             return jump;
         }
 
-
         public boolean isBlocked(Tile t) {
             boolean blocked = true;
             if (t != null) {

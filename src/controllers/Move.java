@@ -22,14 +22,6 @@ public class Move {
 
     }
 
-    public boolean isCapture() {
-        return capture;
-    }
-
-    public void setCapture(boolean capture) {
-        this.capture = capture;
-    }
-
     public Move(Tile s, Tile e) {
         moveStart = s;
         moveEnd = e;
@@ -38,6 +30,14 @@ public class Move {
         } else {
             capture = false;
         }
+    }
+
+    public boolean isCapture() {
+        return capture;
+    }
+
+    public void setCapture(boolean capture) {
+        this.capture = capture;
     }
 
     public Tile getMoveStart() {
