@@ -1,6 +1,7 @@
 package models;
 
 
+import views.ConsoleIO;
 
 public class Human extends Player {
     private int score;
@@ -9,6 +10,15 @@ public class Human extends Player {
     public Human(String playerName, int playerWinCount) {
         setPlayerName(playerName);
         addPlayersWin(playerWinCount);
+    }
+
+    //  Each derived class will implement this method to specify the move they will make when it is their turn.
+    //  Returns a Move object which represents the chosen move.
+    @Override
+    public int chooseMove(Player p) {
+        int choice = ConsoleIO.promptForMenuSelection(moveOptionsToArray(getMoveOptions()), false);
+
+        return choice;
     }
 
     public Human(String playerName) {
