@@ -1,6 +1,5 @@
 package controllers;
 
-import models.BJCard;
 import models.BJCardDeck;
 import models.Human;
 import models.Player;
@@ -26,7 +25,6 @@ public class BlackJack {
             deck2.shuffle();
             Dealer.addCard(deck2.draw(deck2));
             Dealer.addCard(deck2.draw(deck2));
-
             System.out.println(Dealer.getHandAsString(true));
 
             playerTime(player1, playerDeck);
@@ -36,7 +34,7 @@ public class BlackJack {
             }
             //results after Dealer
 
-            wishToContinue = ConsoleIO.promptForBoolean("Would you like to continue: ", "yes", "no");
+            wishToContinue = ConsoleIO.promptForBoolean("Would you like to continue playing BlackJack: ", "yes", "no");
             player1.MovetoDeck(playerDeck);
             Dealer.MovetoDeck(deck2);
         } while (wishToContinue);

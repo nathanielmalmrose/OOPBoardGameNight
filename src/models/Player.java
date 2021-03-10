@@ -52,6 +52,7 @@ public abstract class Player implements Serializable {
     public void setPlayerNum(int playerNum) {
         this.playerNum = playerNum;
     }
+
         //this is blackjack!
 
     public BJCard getCard(int i) {
@@ -104,6 +105,7 @@ public abstract class Player implements Serializable {
 
 
     //This is blackJack!!
+
     @Override
     public String toString() {
         return getPlayerName();
