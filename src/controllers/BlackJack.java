@@ -10,8 +10,6 @@ public class BlackJack {
     public boolean gameOver = false;
     boolean playerNotLost;
     boolean wishToContinue;
-
-
     public void playGamePVCP(Player player1) {
             BJCardDeck playerDeck = new BJCardDeck();
             BJCardDeck deck2 = new BJCardDeck();
@@ -46,9 +44,7 @@ public class BlackJack {
         BJCardDeck deck1 = new BJCardDeck();
         BJCardDeck deck2 = new BJCardDeck();
         do {
-
             //Gives player1 cards
-
             deck1.shuffle();
             deck1.shuffle();
             player1.addCard(deck1.draw(deck1));
@@ -77,8 +73,6 @@ public class BlackJack {
 
         }while (wishToContinue);
     }
-
-
     public void playerTime(Player mainPlayer, BJCardDeck deck1) {
         String userInput;
         System.out.println(mainPlayer.getPlayerName() + " Card value=" + mainPlayer.sumOfHand());
@@ -107,7 +101,6 @@ public class BlackJack {
         } while (!gameOver);
 
     }
-
     public void DealerTurn(BJCardDeck deck1, Player thisPlayer) {
         System.out.println("Dealer turn!!");
         System.out.println();
@@ -115,51 +108,51 @@ public class BlackJack {
         gameOver = true;
 
         while (gameOver != false) {
-            if (Dealer.sumOfHand() <= 15) {
+            if (Dealer.sumOfHand() >= 15 && Dealer.sumOfHand() <=21) {
                 // DRAW CARD
                 Dealer.addCard(deck1.draw(deck1));
                 System.out.println(Dealer.getPlayerName() + " drew another card");
                 System.out.println();
                 System.out.println(Dealer.getHandAsString(false));
-                if (Dealer.sumOfHand() > 21) {
-                    System.out.println("Dealer busted and got a total of " + Dealer.sumOfHand() + ". "
-                            + thisPlayer.getPlayerName() + " wins this time!");
-                    gameOver = true;
-                }
-
-            } else {
-                // STAY
+                }else {
                 System.out.println("Dealer has chosen to stay!");
                 System.out.println();
                 int totalDealerSum = Dealer.sumOfHand();
                 int totalPlayerSum1 = thisPlayer.sumOfHand();
-                if (totalDealerSum > totalPlayerSum1) {
+
+                if (totalDealerSum > totalPlayerSum1 && totalDealerSum <=21) {
                     System.out.println("Both players has decided to stay. The winner is " + Dealer.getPlayerName()
                             + " with a total of " + totalDealerSum + ".");
-                } else {
+                } else if (totalPlayerSum1 < totalDealerSum && totalDealerSum >21||totalPlayerSum1 > totalDealerSum){
                     System.out.println("Both players has decided to stay. The winner is " + thisPlayer.getPlayerName()
                             + " with a total of " + totalPlayerSum1 + ".");
+                    thisPlayer.addPlayersWin(1);
+                }else{
+                    System.out.println("The dealer went over 21 "+thisPlayer.getPlayerName()+"is the winner with "
+                    +totalPlayerSum1);
                 }
                 gameOver = false;
             }
 
         }
     }
-
     public void checkForWinner(Player player1, Player player2) {
-
         int totalPlayer1Sum = player1.sumOfHand();
         int totalPlayer2Sum = player2.sumOfHand();
+        int i =1;
         if (totalPlayer1Sum > totalPlayer2Sum) {
             System.out.println("Both players has decided to stay. The winner is " + player1.getPlayerName()
                     + " with a total of " + totalPlayer1Sum + ".");
+
+            player1.addPlayersWin(1);
+
         } else {
             System.out.println("Both players has decided to stay. The winner is " + player2.getPlayerName()
                     + " with a total of " + totalPlayer2Sum + ".");
+            player2.addPlayersWin(1);
         }
         gameOver = false;
     }
-
 }
 
 

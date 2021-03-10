@@ -5,8 +5,6 @@ import java.util.Collections;
 
 public class BJCardDeck {
     private ArrayList<BJCard> cards;
-
-
     public BJCardDeck() {
         cards = new ArrayList<BJCard>();
         // populate deck with cards
@@ -31,7 +29,6 @@ public class BJCardDeck {
     public void removeCard(int i) {
         this.cards.remove(i);
     }
-
     public void addCard(BJCard aCard){
         this.cards.add(aCard);
     }
