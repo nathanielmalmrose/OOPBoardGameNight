@@ -70,7 +70,7 @@ public class BlackJack {
             //results after
 
 
-            wishToContinue = ConsoleIO.promptForBoolean("Would you like to continue: ", "yes", "no");
+            wishToContinue = ConsoleIO.promptForBoolean("Would you like to continue (yes, no): ", "yes", "no");
             player1.MovetoDeck(deck1);
             player2.MovetoDeck(deck2);
 
@@ -95,7 +95,7 @@ public class BlackJack {
                     playerNotLost = true;
                     gameOver = true;
                 } else if (mainPlayer.sumOfHand() == 21) {
-                    System.out.println("BlackJack, YOu got a perfect 21!");
+                    System.out.println("BlackJack, You got a perfect 21!");
                     playerNotLost = true;
                     gameOver = true;
                     mainPlayer.addPlayersWin(1);
@@ -121,13 +121,13 @@ public class BlackJack {
         int totalPlayer2Sum = player2.sumOfHand();
         if (totalPlayer1Sum <= 21&& totalPlayer2Sum<=21) {
             if (totalPlayer1Sum > totalPlayer2Sum) {
-                winnerPhrase=("Both players has decided to stay. The winner is " + player1.getPlayerName()
+                winnerPhrase=("Both players have decided to stay. The winner is " + player1.getPlayerName()
                         + " with a total of " + totalPlayer1Sum + ".");
 
                 player1.addPlayersWin(1);
 
             } else if (totalPlayer2Sum > totalPlayer1Sum) {
-                winnerPhrase=("Both players has decided to stay. The winner is " + player2.getPlayerName()
+                winnerPhrase=("Both players have decided to stay. The winner is " + player2.getPlayerName()
                         + " with a total of " + totalPlayer2Sum + ".");
 
                 player2.addPlayersWin(1);
@@ -174,10 +174,10 @@ public class BlackJack {
                 int totalPlayerSum1 = thisPlayer.sumOfHand();
 
                 if (totalDealerSum > totalPlayerSum1 && totalDealerSum <= 21) {
-                    System.out.println("Both players has decided to stay. The winner is " + Dealer.getPlayerName()
+                    System.out.println("Both players have decided to stay. The winner is " + Dealer.getPlayerName()
                             + " with a total of " + totalDealerSum + ".");
                 } else if (totalPlayerSum1 < totalDealerSum && totalDealerSum > 21 || totalPlayerSum1 > totalDealerSum) {
-                    System.out.println("Both players has decided to stay. The winner is " + thisPlayer.getPlayerName()
+                    System.out.println("Both players have decided to stay. The winner is " + thisPlayer.getPlayerName()
                             + " with a total of " + totalPlayerSum1 + ".");
                     thisPlayer.addPlayersWin(1);
                 } else {
