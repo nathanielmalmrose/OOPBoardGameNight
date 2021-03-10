@@ -144,8 +144,8 @@ public class BlackJack {
                     + " with a total of " + totalPlayer1Sum + ".");
 
             player1.addPlayersWin(1);
-        }else{
-            winnerPhrase = "how did you get here";
+        }else if (totalPlayer1Sum == totalPlayer2Sum) {
+            winnerPhrase = "You both tied, So no points for either of you!";
         }
         return winnerPhrase;
     }
@@ -180,7 +180,10 @@ public class BlackJack {
                     System.out.println("Both players have decided to stay. The winner is " + thisPlayer.getPlayerName()
                             + " with a total of " + totalPlayerSum1 + ".");
                     thisPlayer.addPlayersWin(1);
-                } else {
+                } else if (totalDealerSum == thisPlayer.sumOfHand()){
+                    System.out.println("Both the dealer and you tied so neither wins!");
+
+                }else{
                     System.out.println("The dealer went over 21 " + thisPlayer.getPlayerName() + "is the winner with "
                             + totalPlayerSum1);
                     thisPlayer.addPlayersWin(1);
